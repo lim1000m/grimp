@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
 public @interface Grider {
 	
 	public enum Align {left, center, right};
-	public enum Format {money, function, checkbox, radio, text, customCheckBox};
+	public enum Format {money, function, checkbox, radio, text, customCheckbox};
 	public enum Sort {desc, asc, none};
 	
 	/**
@@ -90,6 +90,7 @@ public @interface Grider {
 	 * @explain : 컬럼 내용을 그리드에서 수정 가능한 editable하게 만드는 것 
 	 * @return : boolean
 	 */
+	@Deprecated
 	boolean editor() default false;
 }
  
