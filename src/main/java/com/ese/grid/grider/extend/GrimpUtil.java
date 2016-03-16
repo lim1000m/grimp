@@ -178,8 +178,8 @@ public class GrimpUtil {
 			fncField.setAccessible(true);
 			fncStr = (String[]) fncField.get(fncCls);
 			
-			matArr = fncField.getAnnotation(Matcher.class).Matche();
-			msgArr = fncField.getAnnotation(Matcher.class).Message();
+			matArr = fncField.getAnnotation(Matcher.class).matche();
+			msgArr = fncField.getAnnotation(Matcher.class).message();
 		
 			if(fncStr.length > 0) {
 				for (int i = 0; i < fncStr.length; i++) {

@@ -4,6 +4,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -33,6 +34,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ServletWebArgumentR
 import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+
+import com.ese.grid.grider.Grimp;
 
 @Configuration
 @EnableWebMvc
@@ -212,5 +215,18 @@ public class DispatcherConfig  extends WebMvcConfigurerAdapter{
 		RequestMappingHandlerAdapter rmha = new RequestMappingHandlerAdapter();
 		rmha.setMessageConverters(converter);
 		return rmha;
+	}
+	
+	/**
+	 * @Method Name : grimp
+	 * @create Date : 2016. 3. 15.
+	 * @made by : "GOEDOKID"
+	 * @explain : Grimp Bean 생성 
+	 * @param : 
+	 * @return : Grimp
+	 */
+	@Bean
+	public Grimp grimp() {
+		return new Grimp(messageSource());
 	}
 }

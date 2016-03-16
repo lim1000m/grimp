@@ -30,7 +30,7 @@ import com.ese.grid.annotation.config.Gid;
 public class Dvsn {
 
 	@Transient
-	@Grider(label="com.ese.check",align=Align.center, format=Format.customCheckBox, sort=Sort.none)
+	@Grider(label="com.ese.check",align=Align.center, sort=Sort.none,format=Format.customCheckbox,display=true, width="*")
 	private int check;
 	
 	@Transient
@@ -52,7 +52,7 @@ public class Dvsn {
 	private String stdDvsnCd = "";
 
 	@Column(name="USE_YN", nullable=true, length=1)
-	@Grider(label="com.ese.useYn", format=Format.radio)
+	@Grider(label="com.ese.useYn")
 	private String useYn = "";
 
 	@Transient

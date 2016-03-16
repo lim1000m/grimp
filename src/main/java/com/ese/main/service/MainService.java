@@ -105,9 +105,7 @@ public class MainService extends HibernateDaoSupport {
 	public Grivo getDvsnMap(Map<String, Object> paramMap) {
 		MainMapper mapper = sqlSessionTemplate.getMapper(MainMapper.class);
 		int count = mapper.getDvsnDomainCnt();
-		
 		paramMap = Pager.paging(paramMap,count);
-		
 		return new Grivo(paramMap, mapper.getDvsnDomainMap(paramMap));
 	}
 

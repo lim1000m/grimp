@@ -51,9 +51,6 @@ public class Pager {
 	 */
 	public static Map<String, Object> paging(Map<String, Object> map, int totalCnt) {
 		
-		COMLog.debug(map.toString());
-		COMLog.debug(Integer.toString(totalCnt));
-		
 		int pageNo = Integer.parseInt(map.get("pageNo").toString());
 		int pageSize = Integer.parseInt(map.get("pageSize").toString());
 		
@@ -69,8 +66,6 @@ public class Pager {
 		map.put("endNum", endNum);
 		map.put("pageCnt", pageCnt);
 		map.put("totalCnt", totalCnt);
-		
-		COMLog.debug(map.toString());
 		
 		return map;
 	}

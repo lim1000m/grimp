@@ -165,7 +165,7 @@ public class Grimp extends GrimpUtil {
 	 * @return : String
 	 * @throws GrimpExceptionHandler 
 	 */
-	public String buildTypeCheck(Grivo grivo, Class<?> cls) throws GrimpExceptionHandler {
+	private String buildTypeCheck(Grivo grivo, Class<?> cls) throws GrimpExceptionHandler {
 		
 		if(grivo.getPager().containsKey("exprType")) 
 			this.exprType = (ExprType) grivo.getPager().get("exprType");
@@ -241,7 +241,7 @@ public class Grimp extends GrimpUtil {
 					else map.put("sort", grider.sort());
 					
 					if(!grider.format().equals(Format.function)) 
-						if(!grider.format().equals(Format.text) && !grider.format().equals(Format.customCheckBox))
+						if(!grider.format().equals(Format.text) && !grider.format().equals(Format.customCheckbox))
 							map.put("formatter", grider.format());
 						
 					/**
@@ -332,7 +332,7 @@ public class Grimp extends GrimpUtil {
 					grider = fields[i].getAnnotation(Grider.class);
 					if(grider != null) {
 						if(!grider.format().equals(Format.function)) {
-							if(grider.format().equals(Format.customCheckBox)) {
+							if(grider.format().equals(Format.customCheckbox)) {
 								jsonMap.put(fields[i].getName(), getCustomCheckBox(getMetaDataValue(obj, keyVar), fields[i].getName()));		
 							} else {
 								jsonMap.put(fields[i].getName(), getMetaDataValue(obj, fields[i].getName()));
@@ -401,7 +401,7 @@ public class Grimp extends GrimpUtil {
 					grider = fields[i].getAnnotation(Grider.class);
 					if(grider != null) {
 						if(!grider.format().equals(Format.function)) {
-							if(grider.format().equals(Format.customCheckBox)) 
+							if(grider.format().equals(Format.customCheckbox)) 
 								jsonMap.put(fields[i].getName(), getCustomCheckBox(thisMap, fields[i].getName(), keyVar));
 							else
 								jsonMap.put(fields[i].getName(), thisMap.get(cnvtDmnToClmn(fields[i].getName())));	

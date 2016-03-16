@@ -19,23 +19,23 @@ import java.lang.annotation.Target;
 public @interface Matcher {
 	
 	/**
-	 * @Method Name : Matcher
+	 * @Method Name : matche
 	 * @create Date : 2016. 3. 2.
 	 * @made by : "GOEDOKID"
 	 * @explain : 동일  ROW 레벨의 다른 컬럼 정보(domain에서 설정한 변수값으로 지정) 
 	 * 			  EX) Matcher={test1, test2}
 	 * @return : String[]
 	 */
-	String[] Matche() default {};
+	String[] matche() default {};
 
 	/**
-	 * @Method Name : Message
+	 * @Method Name : message
 	 * @create Date : 2016. 3. 2.
 	 * @made by : "GOEDOKID"
 	 * @explain : 변환할 국제화 메세지
 	 * 			  EX) Message={com.ese.test, com.ese.default}  
 	 * @return : String[]
 	 */
-	String[] Message() default {};
+	String[] message() default {};
 	
 }
