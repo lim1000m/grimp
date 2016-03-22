@@ -1,23 +1,16 @@
 package com.ese.config.spring;
 
-import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -29,13 +22,12 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
-import org.springframework.web.servlet.mvc.method.annotation.ServletWebArgumentResolverAdapter;
 import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import com.ese.config.resolverHandler.RequestArgumentResolver;
 
-import com.ese.grid.grider.Grimp;
+import c.e.g.grimp.Grimp;
 
 @Configuration
 @EnableWebMvc
@@ -189,34 +181,6 @@ public class DispatcherConfig  extends WebMvcConfigurerAdapter{
 		return multipartResolver;
 	}
 	
-
-	/**
-	 * @Method Name : requestMappingHandlerAdapter
-	 * @create Date : 2016. 2. 23.
-	 * @made by : "GOEDOKID"
-	 * @explain : JSON 한글 String Converter 
-	 * 			  JSONObject 형식으로 보낼대는 한글이 문제 없이 전달되나 
-	 * 			  String 형식의 한글을 @ResponseBody 으로 전달하고자 할때는 한글이 깨짐
-	 * 			    물론 @RequestMapping 에서 produce를 통해서 각개별로 옵션을 줄 수도 있음.  
-	 * @return : RequestMappingHandlerAdapter
-	 */
-	@Bean
-	public RequestMappingHandlerAdapter requestMappingHandlerAdapter() {
-		
-		List<MediaType> mediaTypes = new ArrayList<MediaType>();
-		mediaTypes.add(MediaType.APPLICATION_JSON);
-		
-		StringHttpMessageConverter stringHttpMessageconverter = new StringHttpMessageConverter(Charset.forName("UTF-8"));
-		stringHttpMessageconverter.setSupportedMediaTypes(mediaTypes);
-		
-		List<HttpMessageConverter<?>> converter = new ArrayList<HttpMessageConverter<?>>();
-		converter.add(stringHttpMessageconverter);
-		
-		RequestMappingHandlerAdapter rmha = new RequestMappingHandlerAdapter();
-		rmha.setMessageConverters(converter);
-		return rmha;
-	}
-	
 	/**
 	 * @Method Name : grimp
 	 * @create Date : 2016. 3. 15.
@@ -228,5 +192,31 @@ public class DispatcherConfig  extends WebMvcConfigurerAdapter{
 	@Bean
 	public Grimp grimp() {
 		return new Grimp(messageSource());
+	}
+	
+	/**
+	 * @Method Name : fileUpload
+	 * @create Date : 2015. 8. 21.
+	 * @made by : GOEDOKID
+	 * @explain : Argument Resolver 설정 
+	 * @param : List<HandlerMethodArgumentResolver> argumentResolvers
+	 * @return : CommonsMultipartResolver
+	 */
+	@Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(requestArgumentResolver());
+    }
+	
+	/**
+	 * @Method Name : commomArgumentResolver
+	 * @create Date : 2016. 3. 18.
+	 * @made by : "GOEDOKID"
+	 * @explain : 공통 파라메타 Argument Resolver
+	 * @param : 
+	 * @return : HandlerMethodArgumentResolver
+	 */
+	@Bean
+	public HandlerMethodArgumentResolver requestArgumentResolver() {
+		return new RequestArgumentResolver();
 	}
 }
