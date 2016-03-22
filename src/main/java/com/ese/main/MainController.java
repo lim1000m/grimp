@@ -3,9 +3,12 @@ package com.ese.main;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+
 import net.sf.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -13,11 +16,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import c.e.g.domain.Grivo;
+import c.e.g.grimp.Grimp;
+
 import com.ese.cmmn.CmmnUtil;
-import com.ese.comm.util.log.COMLog;
+import com.ese.config.resolverHandler.RequestMap.RequestMap;
 import com.ese.domain.Dvsn;
-import com.ese.grid.domain.Grivo;
-import com.ese.grid.grider.Grimp;
 import com.ese.main.service.MainService;
 
 /**
@@ -26,9 +31,13 @@ import com.ese.main.service.MainService;
  * @pakage Name : com.ese.main
  * @create Date : 2016. 2. 23.
  * @explain : AXISJ GRID 테스트 클래스
+ * 			    클래스 단에 RequestMapping을 넣어준 것은 
+ * 			  HttpStringConverter 기본 설정이 text/plain charset=ISO-8859이여서 
+ * 			    한글 정보가 깨진다. response header의 content-type을 변경한다. 
  * @made by : "GOEDOKID"
  */
 @Controller
+@RequestMapping(produces="application/json; charset=utf8") 
 public class MainController {
 	
 	@Autowired
@@ -57,8 +66,8 @@ public class MainController {
 			Model model,
 			Locale locale
 			) {
+		
 		String grimpHeader = grimp.buildGrimpHeader(Dvsn.class,message,locale);
-		COMLog.debug(grimpHeader);
 		model.addAttribute("xGridHeader", grimpHeader);
 		return "main/main";
 	}
@@ -68,20 +77,14 @@ public class MainController {
 	 * @create Date : 2016. 3. 11.
 	 * @made by : "GOEDOKID"
 	 * @explain : 그리드 목록 조회
-	 * @param : 
+	 * @param : RequestMap requestMap
 	 * @return : String
 	 */
 	@RequestMapping(value="/grider")
 	public @ResponseBody String grider(
-			@RequestParam("pageNo") String pageNo,
-			@RequestParam("pageSize") String pageSize
+			RequestMap requestMap
 			) {
-		
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("pageNo", pageNo);
-		paramMap.put("pageSize", pageSize);
-		
-		return grimp.buildGrimp(mainService.getDvsnDomain(paramMap));
+		return grimp.buildGrimp(mainService.getDvsnDomain(requestMap.getMap()));
 	}
 	
 	/**
@@ -89,20 +92,14 @@ public class MainController {
 	 * @create Date : 2016. 3. 11.
 	 * @made by : "GOEDOKID"
 	 * @explain : 맵 그리드 목록 조회
-	 * @param : 
+	 * @param : RequestMap requestMap
 	 * @return : String
 	 */
 	@RequestMapping(value="/mrider")
 	public @ResponseBody String mrider(
-			@RequestParam("pageNo") String pageNo,
-			@RequestParam("pageSize") String pageSize
+			RequestMap requestMap
 			) {
-		
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("pageNo", pageNo);
-		paramMap.put("pageSize", pageSize);
-		
-		return grimp.buildGrimp(mainService.getDvsnMap(paramMap), Dvsn.class);
+		return grimp.buildGrimp(mainService.getDvsnMap(requestMap.getMap()), Dvsn.class);
 	}
 	
 	/**

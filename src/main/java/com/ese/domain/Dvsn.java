@@ -7,11 +7,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.ese.grid.annotation.Grider;
-import com.ese.grid.annotation.Grider.Align;
-import com.ese.grid.annotation.Grider.Format;
-import com.ese.grid.annotation.Grider.Sort;
-import com.ese.grid.annotation.config.Gid;
+import c.e.g.annotation.Grider;
+import c.e.g.annotation.Grider.Align;
+import c.e.g.annotation.Grider.Format;
+import c.e.g.annotation.Grider.Sort;
+import c.e.g.annotation.config.Gid;
 
 /**
  * @File Name : Dvsn.java
