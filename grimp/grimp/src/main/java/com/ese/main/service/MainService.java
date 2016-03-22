@@ -2,12 +2,10 @@ package com.ese.main.service;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Map;
 
 import javax.persistence.PostLoad;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -17,10 +15,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.stereotype.Service;
 
-import com.ese.comm.util.log.COMLog;
+import c.e.g.domain.Grivo;
+import c.e.g.grimp.Pager;
+
 import com.ese.domain.Dvsn;
-import com.ese.grid.domain.Grivo;
-import com.ese.grid.grider.Pager;
 import com.ese.main.service.mapper.MainMapper;
 
 @Service("mainService")
