@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
@@ -185,7 +186,7 @@ $(document).ready(function(){
 			
 	myGrid.setList({
 		method:"GET",
-		ajaxUrl:"<c:url value='/mrider.do' />", ajaxPars:"", 
+		ajaxUrl:"<c:url value='/grider.do' />", ajaxPars:"", 
 		onLoad:function() {
 		},
 		onsucc:function() {
