@@ -34,6 +34,8 @@ import com.ese.main.service.MainService;
  * 			    클래스 단에 RequestMapping을 넣어준 것은 
  * 			  HttpStringConverter 기본 설정이 text/plain charset=ISO-8859이여서 
  * 			    한글 정보가 깨진다. response header의 content-type을 변경한다. 
+ *            response content-type이 application/json charset=UTF-8이라면 
+ *            제거해도 된다.
  * @made by : "GOEDOKID"
  */
 @Controller
