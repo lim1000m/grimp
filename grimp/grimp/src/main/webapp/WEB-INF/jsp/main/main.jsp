@@ -24,7 +24,7 @@ $(document).ready(function(){
 	myGrid = new AXGrid();
 	myGrid.setConfig({
 		targetID: "ui-grid-ajax",
-		colGroup: ${xGridHeader},
+		colGroup: ${grimpHeader},
 		page:{
 			paging:true,
 			pageSize:5
@@ -186,7 +186,7 @@ $(document).ready(function(){
 			
 	myGrid.setList({
 		method:"GET",
-		ajaxUrl:"<c:url value='/grider.do' />", ajaxPars:"", 
+		ajaxUrl:"<c:url value='/mrider.do' />", ajaxPars:"", 
 		onLoad:function() {
 		},
 		onsucc:function() {
