@@ -32,11 +32,20 @@ public class ResponseControllerAdvice implements ResponseBodyAdvice<Object> {
 	
 	private static Grimp grimp = null; 
 	
+	/**
+	 * Grivo 형의 리턴일 경우에만 beforeBodyWrite를 허용
+	 */
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
     	return Grivo.class.isAssignableFrom(returnType.getParameterType());
     }
 
+    /**
+     * Grivo 객체에 대한 리턴을 처리함
+     * 1. Grimp 객체 생성 및 WebApplicationContext를 생성자로 적용
+     * 2. Grivo 객체 형 변환
+     * 3. Grivo 의 getGridCls의 여부에 따라 함수호출
+     */
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
             Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
