@@ -24,6 +24,7 @@ import com.ese.cmmn.CmmnUtil;
 import com.ese.config.resolverHandler.RequestMap.RequestMap;
 import com.ese.domain.Dvsn;
 import com.ese.main.service.MainService;
+import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  * @File Name : MainController.java
@@ -68,9 +69,7 @@ public class MainController {
 			Model model,
 			Locale locale
 			) {
-		
-		String grimpHeader = grimp.buildGrimpHeader(Dvsn.class,message,locale);
-		model.addAttribute("xGridHeader", grimpHeader);
+		model.addAttribute("grimpHeader", grimp.buildGrimpHeader(Dvsn.class,locale));
 		return "main/main";
 	}
 	
@@ -78,15 +77,51 @@ public class MainController {
 	 * @Method Name : grider
 	 * @create Date : 2016. 3. 11.
 	 * @made by : "GOEDOKID"
-	 * @explain : 그리드 목록 조회
+	 * @explain : 그리드 목록 조회 ControllerAdvice, ArgumentResolver Spring 설정
 	 * @param : RequestMap requestMap
-	 * @return : String
+	 * @return : Grivo
 	 */
 	@RequestMapping(value="/grider")
-	public @ResponseBody String grider(
+	public @ResponseBody Grivo grider(
 			RequestMap requestMap
 			) {
-		return grimp.buildGrimp(mainService.getDvsnDomain(requestMap.getMap()));
+		return mainService.getDvsnDomain(requestMap.getMap());
+	}
+	
+	/**
+	 * @Method Name : mrider
+	 * @create Date : 2016. 3. 11.
+	 * @made by : "GOEDOKID"
+	 * @explain : 맵 그리드 목록 조회 ControllerAdvice, ArgumentResolver Spring 설정
+	 * @param : RequestMap requestMap
+	 * @return : Grivo
+	 */
+	@RequestMapping(value="/mrider")
+	public @ResponseBody Grivo mrider(
+			RequestMap requestMap
+			) {
+		return mainService.getDvsnMap(requestMap.getMap());
+	}
+	
+	/**
+	 * @Method Name : grider
+	 * @create Date : 2016. 3. 11.
+	 * @made by : "GOEDOKID"
+	 * @explain : 그리드 목록 조회
+	 * @param : 
+	 * @return : String
+	 */
+	@RequestMapping(value="/griderStr")
+	public @ResponseBody String griderStr(
+			@RequestParam("pageNo") String pageNo,
+			@RequestParam("pageSize") String pageSize
+			) {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("pageNo", pageNo);
+		paramMap.put("pageSize", pageSize);
+		
+		return grimp.buildGrimp(mainService.getDvsnDomain(paramMap));
 	}
 	
 	/**
@@ -94,14 +129,20 @@ public class MainController {
 	 * @create Date : 2016. 3. 11.
 	 * @made by : "GOEDOKID"
 	 * @explain : 맵 그리드 목록 조회
-	 * @param : RequestMap requestMap
+	 * @param : 
 	 * @return : String
 	 */
-	@RequestMapping(value="/mrider")
-	public @ResponseBody String mrider(
-			RequestMap requestMap
+	@RequestMapping(value="/mriderStr")
+	public @ResponseBody String mriderStr(
+			@RequestParam("pageNo") String pageNo,
+			@RequestParam("pageSize") String pageSize
 			) {
-		return grimp.buildGrimp(mainService.getDvsnMap(requestMap.getMap()), Dvsn.class);
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("pageNo", pageNo);
+		paramMap.put("pageSize", pageSize);
+		
+		return grimp.buildGrimp(mainService.getDvsnMap(paramMap), Dvsn.class);
 	}
 	
 	/**

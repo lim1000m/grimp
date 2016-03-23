@@ -1,6 +1,7 @@
 package com.ese.main.service;
 
 import java.util.ArrayList;
+
 import java.util.Map;
 
 import javax.persistence.PostLoad;
@@ -83,11 +84,13 @@ public class MainService extends HibernateDaoSupport {
 	 * @made by : "GOEDOKID"
 	 * @explain : 도메인 조회
 	 * @param : Map<String, Object> paramMap
-	 * @return : ArrayList<Dvsn>
+	 * @return : Grivo(Map<String, Object>, ArrayList<Class<?>>)
 	 */
 	public Grivo getDvsnDomain(Map<String, Object> paramMap) {
 		MainMapper mapper = sqlSessionTemplate.getMapper(MainMapper.class);
-		return new Grivo(Pager.paging(paramMap, mapper.getDvsnDomainCnt()), mapper.getDvsnDomain(paramMap));
+		int count = mapper.getDvsnDomainCnt();
+		paramMap = Pager.paging(paramMap,count);
+		return new Grivo(paramMap, mapper.getDvsnDomain(paramMap));
 	}
 	
 	/**
@@ -96,7 +99,7 @@ public class MainService extends HibernateDaoSupport {
 	 * @made by : "GOEDOKID"
 	 * @explain : 맵으로 조회
 	 * @param : Map<String, String> paramMap
-	 * @return : Map<String,Object>
+	 * @return : Grivo(Class<?>, Map<String, Object>, ArrayList<Map<String, Object>>)
 	 * 		Map형태로 변경
 	 * 		기존 프로젝트 변경 방법
 	 */
@@ -104,7 +107,7 @@ public class MainService extends HibernateDaoSupport {
 		MainMapper mapper = sqlSessionTemplate.getMapper(MainMapper.class);
 		int count = mapper.getDvsnDomainCnt();
 		paramMap = Pager.paging(paramMap,count);
-		return new Grivo(paramMap, mapper.getDvsnDomainMap(paramMap));
+		return new Grivo(Dvsn.class, paramMap, mapper.getDvsnDomainMap(paramMap));
 	}
 
 	/**
