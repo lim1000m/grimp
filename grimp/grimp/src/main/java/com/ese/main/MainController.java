@@ -1,6 +1,7 @@
 package com.ese.main;
 
 import java.util.HashMap;
+
 import java.util.Locale;
 import java.util.Map;
 
@@ -24,7 +25,6 @@ import com.ese.cmmn.CmmnUtil;
 import com.ese.config.resolverHandler.RequestMap.RequestMap;
 import com.ese.domain.Dvsn;
 import com.ese.main.service.MainService;
-import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  * @File Name : MainController.java
@@ -52,9 +52,6 @@ public class MainController {
 	@Autowired
 	MessageSource message;
 	
-	@PostConstruct
-	public void postConstruct() {
-	}
 	
 	/**
 	 * @Method Name : main
@@ -69,7 +66,7 @@ public class MainController {
 			Model model,
 			Locale locale
 			) {
-		model.addAttribute("grimpHeader", grimp.buildGrimpHeader(Dvsn.class,locale));
+		model.addAttribute("grimpHeader", grimp.buildGrimpHeader(Dvsn.class, message, locale));
 		return "main/main";
 	}
 	

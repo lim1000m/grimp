@@ -36,14 +36,6 @@ public class MainService extends HibernateDaoSupport {
 	}
 	
 	/**
-	 * ModelAttribute Service
-	 */
-	@PostLoad
-	public void thisIsSparta() {
-		System.out.println("POSTPOSTPOSTPOSTPOSTPOSPTOSPTOPSTOPSO");
-	}
-	
-	/**
 	 * @Method Name : getDvsnList
 	 * @create Date : 2016.02.23
 	 * @made by : GOEDOKID
